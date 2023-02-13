@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cryptocurrency Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <canvas id="doge-chart"></canvas>
+    <canvas id="btc-chart"></canvas>
+    <canvas id="eth-chart"></canvas>
+    <script>
+      fetch('https://api.coingecko.com/api/v3/coins/dogecoin/market_chart?vs_currency=usd&days=7')
+        .then(response => response.json())
+        .then(data => {
+          const chartData = data.prices.map(price => ({ x: price[0], y: price[1] }));
+          const dogeChart = new Chart(document.getElementById('doge-chart'), {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: 'Dogecoin',
+                data: chartData,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {}
+          });
+        });
+
+      fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=7')
+        .then(response => response.json())
+        .then(data => {
+          const chartData = data.prices.map(price => ({ x: price[0], y: price[1] }));
+          const btcChart = new Chart(document.getElementById('btc-chart'), {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: 'Bitcoin',
+                data: chartData,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {}
+          });
+        });
+
+      fetch('https://api.coingecko.com/api/v3/coins/ethereum/market_chart?vs_currency=usd&days=7')
+        .then(response => response.json())
+        .then(data => {
+          const chartData = data.prices.map(price => ({ x: price[0], y: price[1] }));
+          const ethChart = new Chart(document.getElementById('eth-chart'), {
+            type: 'line',
+            data: {
+              datasets: [{
+                label: 'Ethereum',
+                data: chartData,
+                backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                borderColor: 'rgba(255, 206, 86, 1)',
+                borderWidth: 1
+              }]
+            },
+            options: {}
+          });
+        });
+    </script>
+  </body>
+</html>
